@@ -1,0 +1,32 @@
+- name: load os-dependent variables
+  include_vars: "{{ item }}"
+  with_first_found:
+  - "{{ ansible_os_family }}{{ ansible_distribution_major_version }}.yml"
+  - "{{ ansible_os_family }}.yml"
+  - default.yml
+  when:
+    - default_packages_present is not defined
+    - default_packages_absent is not defined
+
+- name: install utility packages
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items: 
+    - "{{ default_packages_present }}"
+    - "{{ additional_packages_present | default([]) }}"
+
+- name: install Netcat using yum
+  yum:
+    name: nc
+    state: latest
+  when: ansible_os_family == 'RedHat'
+  tags: ['netcat']
+
+- name: uninstall unwanted packages
+  package:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ default_packages_absent | default([]) }}"
+    - "{{ additional_packages_absent | default([]) }}"

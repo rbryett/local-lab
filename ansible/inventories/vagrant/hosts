@@ -1,0 +1,4 @@
+[vault]
+vault01 pvt_ip=172.17.8.101
+vault01 pvt_ip=172.17.8.102
+vault01 pvt_ip=172.17.8.103

@@ -1,0 +1,10 @@
+default_packages_present:
+  - bind-utils
+  - net-tools
+  - man
+  - tcpdump
+  - policycoreutils-python
+  - python-virtualenvwrapper
+  - python2-pip
+  - python-netaddr
+  - jq

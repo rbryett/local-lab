@@ -1,0 +1,2 @@
+vault_bind_address: "{{ ansible_eth1.ipv4.address }}"
+vault_client_address: "{{ ansible_eth1.ipv4.address }}"

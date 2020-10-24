@@ -1,0 +1,7 @@
+vault_dependencies:
+  - yum-utils
+  - unzip
+vault_zip_url: https://releases.hashicorp.com/vault/1.5.4/vault_1.5.4_linux_amd64.zip
+vault_bin_path: /usr/bin
+vault_user: vault
+vault_group: vault
