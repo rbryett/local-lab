@@ -1,12 +1,10 @@
-- name: Install Consul
+- name: Install Vault
   hosts: 
     - vault
   become: yes
   connection: local
   vars_files:
-    # - vars/consul.yml
     - vars/vault.yml
   roles:
     - base
     - vault
-    # - brianshumate.consul

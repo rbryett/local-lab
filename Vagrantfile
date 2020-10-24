@@ -68,10 +68,15 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
             "vault01",
             "vault02",
             "vault03",
+          ],
+          "consul" => [
+            "consul01",
+            "consul02",
+            "consul03"
           ]
         }
 
-        ansible.playbook = "ansible/vault.yml"
+        ansible.playbook = "ansible/site.yml"
 
         ansible.verbose = "-vv"
 

@@ -2,3 +2,8 @@
 vault01 pvt_ip=172.17.8.101
 vault01 pvt_ip=172.17.8.102
 vault01 pvt_ip=172.17.8.103
+
+[consul]
+consul01 pvt_ip=172.17.8.111
+consul02 pvt_ip=172.17.8.112
+consul03 pvt_ip=172.17.8.113

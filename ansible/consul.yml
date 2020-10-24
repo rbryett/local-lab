@@ -1,0 +1,10 @@
+- name: Install Consul
+  hosts: 
+    - consul
+  become: yes
+  connection: local
+  vars_files:
+    - vars/consul.yml
+  roles:
+    - base
+    - brianshumate.consul
