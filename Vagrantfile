@@ -33,6 +33,7 @@ cat /etc/hosts
 
 SCRIPT
 
+
 Vagrant.configure(VAGRANT_API_VERSION) do |config|
   config.vm.box_check_update = false
   
@@ -42,8 +43,15 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
   config.hostmanager.ignore_private_ip = false
   config.hostmanager.include_offline = true
 
+  number_of_hosts = cluster.length()
+  current_host = 0
+
   cluster.each do |host|
+    
     config.vm.define host[:hostname] do |host_config|
+      current_host += 1
+      puts "current host is #{current_host}"
+
       host_config.vm.box = host[:box]
       host_config.vm.box_version = host[:version]
       host_config.vm.network "private_network", ip: host[:ip]
@@ -61,25 +69,25 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
       end
 
       host_config.vm.provision :shell, :inline => $ETC_HOSTS_SCRIPT
-
-      host_config.vm.provision :ansible_local do |ansible|
-        ansible.groups = {
-          "vault" => [
-            "vault01",
-            "vault02",
-            "vault03",
-          ],
-          "consul" => [
-            "consul01",
-            "consul02",
-            "consul03"
-          ]
-        }
-
-        ansible.playbook = "ansible/site.yml"
-        ansible.limit = "all"
-        ansible.verbose = "-vv"
-
+      if current_host == number_of_hosts then
+        config.vm.provision :ansible_local do |ansible|
+          ansible.groups = {
+            "vault" => [
+              "vault01",
+              "vault02",
+              "vault03",
+            ],
+            "consul" => [
+              "consul01",
+              "consul02",
+              "consul03"
+            ]
+          }
+    
+          ansible.playbook = "ansible/site.yml"
+          ansible.limit = "all"
+          ansible.verbose = "-vv"
+        end
       end
     end
   end

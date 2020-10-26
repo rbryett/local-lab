@@ -9,7 +9,3 @@
   roles:
     - base
     - brianshumate.consul
-  pre_tasks:
-    - debug:
-        msg: "{{ groups['consul'] | map('extract', hostvars, 'ansible_eth1') | list }}"
-        #var: "{{ groups['consul'] | map('extract', hostvars, ['ansible_eth1', 'ipv4', 'address']) | join(',') }}"
