@@ -3,8 +3,7 @@ consul_install_remotely: true
 consul_syslog_enable: true
 syslog_user: root
 consul_node_role: server
-consul_group_name: vault
-consul_bootstrap_expect: true
+consul_group_name: consul
 consul_install_upgrade: true
 consul_bind_address: "{{ ansible_eth1.ipv4.address }}"
 consul_client_address: "{{ ansible_eth1.ipv4.address }}"
@@ -19,3 +18,6 @@ consul_acl_default_policy: deny
 consul_down_policy: allow
 consul_acl_master_token: D897BF84-56F3-4496-8BF5-5917FCB628DC
 consul_acl_token: D897BF84-56F3-4496-8BF5-5917FCB628DC
+consul_bootstrap_expect: true
+consul_bootstrap_expect_value: 3
+consul_join: "{{ groups['consul'] | map('extract', hostvars, ['ansible_eth1', 'ipv4', 'address']) | list }}"

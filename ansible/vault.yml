@@ -2,6 +2,7 @@
   hosts: 
     - vault
   become: yes
+  gather_facts: true
   connection: local
   vars_files:
     - vars/vault.yml

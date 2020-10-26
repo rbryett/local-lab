@@ -10,9 +10,9 @@ cluster = [
   { :hostname => "consul02", :ip => "172.17.8.102", :box => "#{BENTO_CENTOS_BOX}", :version => "#{BENTO_CENTOS_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8080, :host => 8082 }] },
   { :hostname => "consul03", :ip => "172.17.8.103", :box => "#{BENTO_CENTOS_BOX}", :version => "#{BENTO_CENTOS_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8080, :host => 8083 }] },
 
-  { :hostname => "vault01", :ip => "172.17.8.111", :box => "#{BENTO_CENTOS_BOX}", :version => "#{BENTO_CENTOS_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8200, :host => 8201 }] },
-  { :hostname => "vault02", :ip => "172.17.8.112", :box => "#{BENTO_CENTOS_BOX}", :version => "#{BENTO_CENTOS_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8200, :host => 8202 }] },
-  { :hostname => "vault03", :ip => "172.17.8.113", :box => "#{BENTO_CENTOS_BOX}", :version => "#{BENTO_CENTOS_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8200, :host => 8203 }] }
+  # { :hostname => "vault01", :ip => "172.17.8.111", :box => "#{BENTO_CENTOS_BOX}", :version => "#{BENTO_CENTOS_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8200, :host => 8201 }] },
+  # { :hostname => "vault02", :ip => "172.17.8.112", :box => "#{BENTO_CENTOS_BOX}", :version => "#{BENTO_CENTOS_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8200, :host => 8202 }] },
+  # { :hostname => "vault03", :ip => "172.17.8.113", :box => "#{BENTO_CENTOS_BOX}", :version => "#{BENTO_CENTOS_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8200, :host => 8203 }] }
 ]
 
 ETC_HOSTS_ENTRIES = ""
@@ -77,7 +77,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
         }
 
         ansible.playbook = "ansible/site.yml"
-
+        ansible.limit = "all"
         ansible.verbose = "-vv"
 
       end
