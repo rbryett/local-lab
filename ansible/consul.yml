@@ -2,8 +2,7 @@
   hosts: 
     - consul
   become: yes
-  gather_facts: true
-  connection: local
+  gather_facts: yes
   vars_files:
     - vars/consul.yml
   roles:

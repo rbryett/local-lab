@@ -1,0 +1,9 @@
+default_packages_present:
+  - ansible
+  - net-tools
+  - tcpdump
+#  - policycoreutils-python
+#  - python-virtualenvwrapper
+  - python3-pip
+  - python-netaddr
+  - jq

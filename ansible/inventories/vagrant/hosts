@@ -1,9 +1,4 @@
-[vault]
-vault01 pvt_ip=172.17.8.101
-vault01 pvt_ip=172.17.8.102
-vault01 pvt_ip=172.17.8.103
-
 [consul]
-consul01 pvt_ip=172.17.8.111
-consul02 pvt_ip=172.17.8.112
-consul03 pvt_ip=172.17.8.113
+consul01 ansible_host=172.17.8.101 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key
+consul02 ansible_host=172.17.8.102 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key
+consul03 ansible_host=172.17.8.103 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key

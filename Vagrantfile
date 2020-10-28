@@ -1,18 +1,21 @@
 VAGRANT_API_VERSION = "2"
 
-BENTO_CENTOS_BOX = "bento/centos-7.7"
-BENTO_CENTOS_VERSION = "202005.12.0"
+UBUNTU_BOX = "bento/ubuntu-20.04"
+UBUNTU_VERSION = "202010.24.0"
 
 HOST_DOMAIN = "test.local"
 
-cluster = [
-  { :hostname => "consul01", :ip => "172.17.8.101", :box => "#{BENTO_CENTOS_BOX}", :version => "#{BENTO_CENTOS_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8080, :host => 8081 }] },
-  { :hostname => "consul02", :ip => "172.17.8.102", :box => "#{BENTO_CENTOS_BOX}", :version => "#{BENTO_CENTOS_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8080, :host => 8082 }] },
-  { :hostname => "consul03", :ip => "172.17.8.103", :box => "#{BENTO_CENTOS_BOX}", :version => "#{BENTO_CENTOS_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8080, :host => 8083 }] },
+INVENTORY_PATH = "ansible/inventories/vagrant/hosts"
 
-  # { :hostname => "vault01", :ip => "172.17.8.111", :box => "#{BENTO_CENTOS_BOX}", :version => "#{BENTO_CENTOS_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8200, :host => 8201 }] },
-  # { :hostname => "vault02", :ip => "172.17.8.112", :box => "#{BENTO_CENTOS_BOX}", :version => "#{BENTO_CENTOS_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8200, :host => 8202 }] },
-  # { :hostname => "vault03", :ip => "172.17.8.113", :box => "#{BENTO_CENTOS_BOX}", :version => "#{BENTO_CENTOS_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8200, :host => 8203 }] }
+
+cluster = [
+  { :hostname => "consul01", :ip => "172.17.8.101", :box => "#{UBUNTU_BOX}", :version => "#{UBUNTU_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8500, :host => 8081 }] },
+  { :hostname => "consul02", :ip => "172.17.8.102", :box => "#{UBUNTU_BOX}", :version => "#{UBUNTU_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8500, :host => 8082 }] },
+  { :hostname => "consul03", :ip => "172.17.8.103", :box => "#{UBUNTU_BOX}", :version => "#{UBUNTU_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8500, :host => 8083 }] },
+
+  # { :hostname => "vault01", :ip => "172.17.8.111", :box => "#{UBUNTU_BOX}", :version => "#{UBUNTU_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8200, :host => 8201 }] },
+  # { :hostname => "vault02", :ip => "172.17.8.112", :box => "#{UBUNTU_BOX}", :version => "#{UBUNTU_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8200, :host => 8202 }] },
+  # { :hostname => "vault03", :ip => "172.17.8.113", :box => "#{UBUNTU_BOX}", :version => "#{UBUNTU_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8200, :host => 8203 }] }
 ]
 
 ETC_HOSTS_ENTRIES = ""
@@ -43,14 +46,13 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
   config.hostmanager.ignore_private_ip = false
   config.hostmanager.include_offline = true
 
-  number_of_hosts = cluster.length()
-  current_host = 0
+  hosts_length = cluster.length()
 
-  cluster.each do |host|
-    
+  cluster.each_with_index do |host, host_id|
+
     config.vm.define host[:hostname] do |host_config|
-      current_host += 1
-      puts "current host is #{current_host}"
+      # Incrememnt index for ansible if logic further down
+      host_id += 1
 
       host_config.vm.box = host[:box]
       host_config.vm.box_version = host[:version]
@@ -69,8 +71,10 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
       end
 
       host_config.vm.provision :shell, :inline => $ETC_HOSTS_SCRIPT
-      if current_host == number_of_hosts then
-        config.vm.provision :ansible_local do |ansible|
+
+      if host_id == hosts_length
+        host_config.vm.provision :ansible do |ansible|
+
           ansible.groups = {
             "vault" => [
               "vault01",
@@ -83,7 +87,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
               "consul03"
             ]
           }
-    
+      
           ansible.playbook = "ansible/site.yml"
           ansible.limit = "all"
           ansible.verbose = "-vv"

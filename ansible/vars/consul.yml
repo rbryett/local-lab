@@ -20,4 +20,4 @@ consul_acl_master_token: D897BF84-56F3-4496-8BF5-5917FCB628DC
 consul_acl_token: D897BF84-56F3-4496-8BF5-5917FCB628DC
 consul_bootstrap_expect: true
 consul_bootstrap_expect_value: 3
-consul_join: "{{ groups['consul'] | map('extract', hostvars, ['ansible_eth1', 'ipv4', 'address']) | list }}"
+# consul_join: "{{ groups['consul'] | map('extract', hostvars, ['ansible_eth1', 'ipv4', 'address']) | list }}"
