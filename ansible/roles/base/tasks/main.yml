@@ -8,6 +8,11 @@
 #     - default_packages_present is not defined
 #     - default_packages_absent is not defined
 
+- name: update apt-get repo and cache
+  apt: 
+    update_cache: yes 
+    force_apt_get: yes
+    cache_valid_time: 3600
 
 - name: install utility packages
   package:
