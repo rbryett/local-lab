@@ -1,0 +1,6 @@
+---
+- name: "Add CA User"
+  user: 
+    name: ca
+    groups: sudo
+    shell: /bin/bash

@@ -1,0 +1,4 @@
+---
+dependencies:
+ - role: ahuffman.resolv
+ - role: jriguera.dnsmasq

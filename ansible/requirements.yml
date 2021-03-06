@@ -1,3 +1,5 @@
 ---
 roles:
 - brianshumate.consul
+- jriguera.dnsmasq
+- ahuffman.resolv

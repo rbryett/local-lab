@@ -1,11 +1,10 @@
-- name: Install Consul
+- name: Install Consul Agents
   hosts: 
-    - consul
+    - consul-agents
   become: yes
   gather_facts: yes
   vars_files:
-    - vars/consul.yml
+    - vars/consul-agents.yml
   roles:
-    - jriguera.dnsmasq
     - base
     - brianshumate.consul

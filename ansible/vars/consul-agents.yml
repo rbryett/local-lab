@@ -1,0 +1,29 @@
+consul_version: 1.8.4
+consul_install_remotely: true
+consul_syslog_enable: true
+syslog_user: root
+consul_node_role: client
+consul_group_name: consul
+consul_install_upgrade: true
+consul_bind_address: "{{ ansible_eth1.ipv4.address }}"
+consul_client_address: "{{ ansible_eth1.ipv4.address }}"
+consul_addresses_dns: 127.0.0.1
+consul_domain: local
+consul_datacenter: test
+consul_raw_key: Z+JsVCvJTv/P/deyaC1TZaNH/PX/mvSCrvlJ1ADCsH8=
+consul_env_vars:
+  - "CONSUL_UI_BETA=true"
+consul_ports_https: 8501
+
+consul_acl_enable: true
+consul_acl_datacetner: test
+consul_acl_default_policy: deny
+consul_down_policy: allow
+consul_acl_master_token: D897BF84-56F3-4496-8BF5-5917FCB628DC
+consul_acl_token: D897BF84-56F3-4496-8BF5-5917FCB628DC
+# consul_join: "{{ groups['consul'] | map('extract', hostvars, ['ansible_eth1', 'ipv4', 'address']) | list }}"
+
+resolv_nameservers:
+  - 172.17.8.101
+  - 172.17.8.102
+  - 172.17.8.103
