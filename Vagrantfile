@@ -9,12 +9,12 @@ INVENTORY_PATH = "ansible/inventories/vagrant/hosts"
 
 
 cluster = [
-  { :hostname => "agent01", :ip => "172.17.8.10", :box => "#{UBUNTU_BOX}", :version => "#{UBUNTU_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [] },
-  { :hostname => "agent02", :ip => "172.17.8.11", :box => "#{UBUNTU_BOX}", :version => "#{UBUNTU_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [] },
-
   { :hostname => "consul01", :ip => "172.17.8.101", :box => "#{UBUNTU_BOX}", :version => "#{UBUNTU_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8500, :host => 8081 }] },
   { :hostname => "consul02", :ip => "172.17.8.102", :box => "#{UBUNTU_BOX}", :version => "#{UBUNTU_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8500, :host => 8082 }] },
   { :hostname => "consul03", :ip => "172.17.8.103", :box => "#{UBUNTU_BOX}", :version => "#{UBUNTU_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8500, :host => 8083 }] },
+
+  { :hostname => "agent01", :ip => "172.17.8.10", :box => "#{UBUNTU_BOX}", :version => "#{UBUNTU_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [] },
+  { :hostname => "agent02", :ip => "172.17.8.11", :box => "#{UBUNTU_BOX}", :version => "#{UBUNTU_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [] },
 
   # { :hostname => "vault01", :ip => "172.17.8.111", :box => "#{UBUNTU_BOX}", :version => "#{UBUNTU_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8200, :host => 8201 }] },
   # { :hostname => "vault02", :ip => "172.17.8.112", :box => "#{UBUNTU_BOX}", :version => "#{UBUNTU_VERSION}", :cpu => "1", :ram => "2048", :forwarded_ports => [{ :guest => 8200, :host => 8202 }] },

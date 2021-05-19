@@ -20,7 +20,12 @@ consul_acl_datacetner: test
 consul_acl_default_policy: deny
 consul_down_policy: allow
 consul_acl_master_token: D897BF84-56F3-4496-8BF5-5917FCB628DC
-consul_acl_token: D897BF84-56F3-4496-8BF5-5917FCB628DC
+consul_acl_token_persistence: false
+
+# consul_tls_enable: true
+# consul_tls_server_crt: "{{ inventory_hostname }}.crt"
+# consul_tls_server_key: "{{ inventory_hostname }}.key"
+
 # consul_join: "{{ groups['consul'] | map('extract', hostvars, ['ansible_eth1', 'ipv4', 'address']) | list }}"
 
 resolv_nameservers:

@@ -28,10 +28,8 @@ consul_acl_token: D897BF84-56F3-4496-8BF5-5917FCB628DC
 consul_raw_key: Z+JsVCvJTv/P/deyaC1TZaNH/PX/mvSCrvlJ1ADCsH8=
 
 consul_tls_enable: true
-consul_tls_copy_keys: false
-consul_tls_ca_crt: /usr/local/share/ca-certificates/consul-agent-ca.pem
-consul_tls_server_key: /etc/consul/ssl/consul.key
-consul_tls_server_crt: /etc/consul/ssl/consul.crt
+consul_tls_server_crt: "{{ inventory_hostname }}.crt"
+consul_tls_server_key: "{{ inventory_hostname }}.key"
 verify_incoming: true
 verify_outgoing: true
 verify_server_hostsname: true
