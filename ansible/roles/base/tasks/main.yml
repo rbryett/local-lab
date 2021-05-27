@@ -36,3 +36,24 @@
   with_items:
     - "{{ default_packages_absent | default([]) }}"
     - "{{ additional_packages_absent | default([]) }}"
+
+- name: deploy simple web service
+  copy:
+    src: simple-web-service
+    dest: /usr/bin/simple-web-service
+    owner: root
+    group: root
+    mode: 0755
+
+- name: deploy simple web service service file
+  copy:
+    src: simple-web-service.service
+    dest: /etc/systemd/system/simple-web-service.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Enable simeple web service
+  service:
+    name: simple-web-service
+    enabled: yes
